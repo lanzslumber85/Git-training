@@ -10,6 +10,7 @@
   <?php
     echo "Hello dunia";
     echo "Line yg lain";
+    echo "apa kahabar kamu?";
   ?>
 </body>
 </html>
