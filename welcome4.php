@@ -7,6 +7,12 @@
   <title>Document</title>
 </head>
 <body>
-  <?= "Hello kamu"; ?>
+  <?php
+    echo <<<END
+      <h1>Selamat datang, $_POST[nama]</h1>
+    END;
+  ?>
+  
+  <p><a href="welcome3.php">Back</a></p>
 </body>
 </html>
