@@ -21,13 +21,33 @@
     }
   ?>
 
-  <?php
-    $resultQuery = query("SELECT * FROM mahasiswa");
+<?php
+    $resultQuery = query("SELECT * FROM mahasiswa ORDER BY id DESC");
   ?>
 
   <h1>Daftar Mahasiswa</h1>
 
+  <p>
+    <form action="" method="POST">
+      <input type="text" name="keyword" size="30" autofocus placeholder="masukkan keyword carian" autocomplete="">
+      <button type="submit" name="cari">Search</button>
+    </form>
+  </p>
+
+  <?php
+    if (isset($_POST["cari"])) {
+
+      $keywordCarian = $_POST["keyword"];
+      // echo "line40 index.php: ".$keywordCarian."<br>";    
+
+      $resultQuery = cari("SELECT * FROM mahasiswa WHERE nama LIKE '%$keywordCarian%' OR nrp LIKE '%$keywordCarian%'");
+      
+    }
+  ?>
+  
   <p><a href="tambahMahasiswa.php">Tambah mahasiswa</a></p>
+
+  
 
   <table border="1" cellpadding="10" cellspacing="0">
     <tr>
