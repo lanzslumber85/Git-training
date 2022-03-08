@@ -1,42 +1,43 @@
 <?php
+require 'functions.php';
 
-  require 'connectWithDB.php';
-  require 'functions.php';
+if (isset($_POST["submit"])) {
+  $nrp = htmlspecialchars($_POST["nrp"]);
+  $nama = htmlspecialchars($_POST["nama"]);
+  $email = htmlspecialchars($_POST["email"]);
+  $jurusan = htmlspecialchars($_POST["jurusan"]);
+  $gambar = htmlspecialchars($_POST["gambar"]);
 
-  if (isset($_POST["submit"])) {
-    $nrp = htmlspecialchars($_POST["nrp"]);
-    $nama = htmlspecialchars($_POST["nama"]);
-    $email = htmlspecialchars($_POST["email"]);
-    $jurusan = htmlspecialchars($_POST["jurusan"]);
-    $gambar = htmlspecialchars($_POST["gambar"]);
+  $resultQuery = query("INSERT INTO mahasiswa (nama, nrp, email, jurusan, gambar) VALUES ('$nama', '$nrp', '$email', '$jurusan', '$gambar')");
+  $resultQuerycleardb = querycleardb("INSERT INTO mahasiswa (nama, nrp, email, jurusan, gambar) VALUES ('$nama', '$nrp', '$email', '$jurusan', '$gambar')");
 
-    $resultQuery = query("INSERT INTO mahasiswa (nama, nrp, email, jurusan, gambar) VALUES ('$nama', '$nrp', '$email', '$jurusan', '$gambar')");
-
-    if ($resultQuery) {
-      echo <<<END
+  if ($resultQuerycleardb && $resultQuery) {
+    echo <<<END
       <script>
         alert('Add data success.');
         document.location.href = 'index.php';
       </script>
-      END;      
-    } else {
-      echo <<<END
+      END;
+  } else {
+    echo <<<END
       <script>
         alert('Unsuccessful.');
       </script>
       END;
-    }
-  }  
+  }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tambah Mahasiswa</title>
 </head>
+
 <body>
   <h1>Tambah Data Mahasiswa</h1>
 
@@ -64,7 +65,7 @@
 
       <li>
         <label for="gambar">Gambar: </label>
-        <input type="text" name="gambar" id="gambar">
+        <input type="file" name="gambar" id="gambar">
       </li>
 
       <li>
@@ -75,4 +76,5 @@
 
   <p><a href="index.php">Back</a></p>
 </body>
+
 </html>

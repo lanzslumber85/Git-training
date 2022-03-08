@@ -1,5 +1,6 @@
 <?php
-require_once 'connectWithDB.php';
+require_once 'dbconnection/localconnect.php';
+require_once 'dbconnection/cleardbconnect.php';
 require_once 'functions.php';
 ?>
 
@@ -17,14 +18,22 @@ require_once 'functions.php';
 
   <?php
   if ($connection_result) {
-    echo "DB connected!";
+    echo "Local DB connected!<br>";
   } else {
-    echo "DB not connected!";
+    echo "Local DB not connected!<br>";
+  }
+  ?>
+  <?php
+  if ($connection_result_cleardb) {
+    echo "Remote DB connected!<br>";
+  } else {
+    echo "Remote DB not connected!<br>";
   }
   ?>
 
   <?php
-  $resultQuery = query("SELECT * FROM mahasiswa ORDER BY id DESC");
+  $resultQuery = query("SELECT * FROM mahasiswa ORDER BY nrp DESC");
+  $resultQuerycleardb = querycleardb("SELECT * FROM mahasiswa ORDER BY nrp DESC");
   ?>
 
   <h1>Daftar Mahasiswa</h1>
@@ -42,7 +51,7 @@ require_once 'functions.php';
     $keywordCarian = $_POST["keyword"];
     // echo "line40 index.php: ".$keywordCarian."<br>";    
 
-    $resultQuery = cari("SELECT * FROM mahasiswa WHERE nama LIKE '%$keywordCarian%' OR nrp LIKE '%$keywordCarian%'");
+    $resultQuerycleardb = caricleardb("SELECT * FROM mahasiswa WHERE nama LIKE '%$keywordCarian%' OR nrp LIKE '%$keywordCarian%'");
   }
   ?>
 
@@ -52,7 +61,6 @@ require_once 'functions.php';
 
   <table border="1" cellpadding="10" cellspacing="0">
     <tr>
-      <th>ID</th>
       <th>Action</th>
       <th>Gambar</th>
       <th>NRP</th>
@@ -62,11 +70,11 @@ require_once 'functions.php';
     </tr>
 
     <?php
-    while ($dataRow = mysqli_fetch_assoc($resultQuery)) {
-      echo <<<END
+    if ($resultQuerycleardb == $resultQuery) {
+      while ($dataRow = mysqli_fetch_assoc($resultQuerycleardb)) {
+        echo <<<END
           <tr>
-            <td>$dataRow[id]</td>
-            <td><a href="ubah.php?id=$dataRow[id]">Edit</a> | <a href="buangdata.php?id=$dataRow[id]" onclick="return confirm('Confirm?');">Delete</a></td>
+            <td><a href="ubah.php?id=$dataRow[nrp]">Edit</a> | <a href="buangdata.php?id=$dataRow[nrp]" onclick="return confirm('Confirm?');">Delete</a></td>
             <td><img src="img/$dataRow[gambar]" alt="profile_picture"></td>
             <td>$dataRow[nrp]</td>
             <td>$dataRow[nama]</td>
@@ -74,7 +82,9 @@ require_once 'functions.php';
             <td>$dataRow[jurusan]</td>
           </tr>
         END;
+      }
     }
+
     ?>
   </table>
 </body>

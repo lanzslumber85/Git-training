@@ -1,13 +1,14 @@
 <?php
   require 'functions.php';
 
-  $id = $_GET["id"];
+  $nrp = $_GET["nrp"];
   
-  $query = "DELETE FROM mahasiswa WHERE id=$id";
+  $query = "DELETE FROM mahasiswa WHERE nrp=$nrp";
 
   $resultQuery = query($query);
+  $resultQuerycleardb = querycleardb($query);
 
-  if ($resultQuery) {
+  if ($resultQuerycleardb && $resultQuery) {
     echo <<<END
     <script>
       alert('Row deleted.');
