@@ -1,6 +1,5 @@
 <?php
 require_once 'dbconnection/localconnect.php';
-require_once 'dbconnection/cleardbconnect.php';
 require_once 'functions.php';
 ?>
 
@@ -23,17 +22,9 @@ require_once 'functions.php';
     echo "Local DB not connected!<br>";
   }
   ?>
-  <?php
-  if ($connection_result_cleardb) {
-    echo "Remote DB connected!<br>";
-  } else {
-    echo "Remote DB not connected!<br>";
-  }
-  ?>
 
   <?php
   $resultQuery = query("SELECT * FROM mahasiswa ORDER BY nrp DESC");
-  $resultQuerycleardb = querycleardb("SELECT * FROM mahasiswa ORDER BY nrp DESC");
   ?>
 
   <h1>Daftar Mahasiswa</h1>
@@ -51,7 +42,7 @@ require_once 'functions.php';
     $keywordCarian = $_POST["keyword"];
     // echo "line40 index.php: ".$keywordCarian."<br>";    
 
-    $resultQuerycleardb = caricleardb("SELECT * FROM mahasiswa WHERE nama LIKE '%$keywordCarian%' OR nrp LIKE '%$keywordCarian%'");
+    $resultQuery = cari("SELECT * FROM mahasiswa WHERE nama LIKE '%$keywordCarian%' OR nrp LIKE '%$keywordCarian%'");
   }
   ?>
 
@@ -70,8 +61,8 @@ require_once 'functions.php';
     </tr>
 
     <?php
-    if ($resultQuerycleardb == $resultQuery) {
-      while ($dataRow = mysqli_fetch_assoc($resultQuerycleardb)) {
+    if ($resultQuery) {
+      while ($dataRow = mysqli_fetch_assoc($resultQuery)) {
         echo <<<END
           <tr>
             <td><a href="ubah.php?id=$dataRow[nrp]">Edit</a> | <a href="buangdata.php?id=$dataRow[nrp]" onclick="return confirm('Confirm?');">Delete</a></td>

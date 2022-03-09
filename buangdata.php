@@ -6,9 +6,8 @@
   $query = "DELETE FROM mahasiswa WHERE nrp=$nrp";
 
   $resultQuery = query($query);
-  $resultQuerycleardb = querycleardb($query);
 
-  if ($resultQuerycleardb && $resultQuery) {
+  if ($resultQuery) {
     echo <<<END
     <script>
       alert('Row deleted.');

@@ -9,9 +9,8 @@ if (isset($_POST["submit"])) {
   $gambar = htmlspecialchars($_POST["gambar"]);
 
   $resultQuery = query("INSERT INTO mahasiswa (nama, nrp, email, jurusan, gambar) VALUES ('$nama', '$nrp', '$email', '$jurusan', '$gambar')");
-  $resultQuerycleardb = querycleardb("INSERT INTO mahasiswa (nama, nrp, email, jurusan, gambar) VALUES ('$nama', '$nrp', '$email', '$jurusan', '$gambar')");
 
-  if ($resultQuerycleardb && $resultQuery) {
+  if ($resultQuery) {
     echo <<<END
       <script>
         alert('Add data success.');

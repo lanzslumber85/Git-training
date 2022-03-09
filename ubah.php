@@ -4,8 +4,7 @@ require_once 'functions.php';
 $nrp = $_GET["nrp"];
 
 $resultQuery = query("SELECT * FROM mahasiswa WHERE nrp=$nrp");
-$resultQuerycleardb = querycleardb("SELECT * FROM mahasiswa WHERE nrp=$nrp");
-if ($resultQuerycleardb == $resultQuery) {
+if ($resultQuery) {
   $dataRow = mysqli_fetch_assoc($resultQuery);
 }
 
@@ -20,9 +19,8 @@ if (isset($_POST["submit"])) {
   $gambar = htmlspecialchars($_POST["gambar"]);
 
   $resultQuery = query("UPDATE mahasiswa SET nrp = '$nrp', nama = '$nama', email = '$email', jurusan = '$jurusan', gambar = '$gambar' WHERE nrp = $nrp");
-  $resultQuerycleardb = querycleardb("UPDATE mahasiswa SET nrp = '$nrp', nama = '$nama', email = '$email', jurusan = '$jurusan', gambar = '$gambar' WHERE nrp = $nrp");
 
-  if ($resultQuerycleardb && $resultQuery) {
+  if ($resultQuery) {
     echo <<<END
       <script>
         alert('Ubah data success.');
