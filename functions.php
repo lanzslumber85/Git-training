@@ -30,3 +30,6 @@ function cari($query)
   return $result;
 }
 
+function tambah() {
+  
+}

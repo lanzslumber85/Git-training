@@ -1,6 +1,6 @@
 <?php
-  $connection_result = 0;
-  $conn = mysqli_connect("localhost", "root", "", "phpdasar");
-  if ($conn) {
-    $connection_result = 1;
-  }
+$connection_result = 0;
+$conn = mysqli_connect("localhost", "root", "mysql", "university");
+if ($conn) {
+  $connection_result = 1;
+}

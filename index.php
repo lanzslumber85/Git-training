@@ -61,11 +61,10 @@ require_once 'functions.php';
     </tr>
 
     <?php
-    if ($resultQuery) {
-      while ($dataRow = mysqli_fetch_assoc($resultQuery)) {
-        echo <<<END
+    while ($dataRow = mysqli_fetch_assoc($resultQuery)) {
+      echo <<<END
           <tr>
-            <td><a href="ubah.php?id=$dataRow[nrp]">Edit</a> | <a href="buangdata.php?id=$dataRow[nrp]" onclick="return confirm('Confirm?');">Delete</a></td>
+            <td><a href="ubah.php?nrp=$dataRow[nrp]">Edit</a> | <a href="buangdata.php?nrp=$dataRow[nrp]" onclick="return confirm('Confirm?');">Delete</a></td>
             <td><img src="img/$dataRow[gambar]" alt="profile_picture"></td>
             <td>$dataRow[nrp]</td>
             <td>$dataRow[nama]</td>
@@ -73,7 +72,6 @@ require_once 'functions.php';
             <td>$dataRow[jurusan]</td>
           </tr>
         END;
-      }
     }
 
     ?>

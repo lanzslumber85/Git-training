@@ -1,30 +1,5 @@
 <?php
 require 'functions.php';
-
-if (isset($_POST["submit"])) {
-  $nrp = htmlspecialchars($_POST["nrp"]);
-  $nama = htmlspecialchars($_POST["nama"]);
-  $email = htmlspecialchars($_POST["email"]);
-  $jurusan = htmlspecialchars($_POST["jurusan"]);
-  $gambar = htmlspecialchars($_POST["gambar"]);
-
-  $resultQuery = query("INSERT INTO mahasiswa (nama, nrp, email, jurusan, gambar) VALUES ('$nama', '$nrp', '$email', '$jurusan', '$gambar')");
-
-  if ($resultQuery) {
-    echo <<<END
-      <script>
-        alert('Add data success.');
-        document.location.href = 'index.php';
-      </script>
-      END;
-  } else {
-    echo <<<END
-      <script>
-        alert('Unsuccessful.');
-      </script>
-      END;
-  }
-}
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +15,7 @@ if (isset($_POST["submit"])) {
 <body>
   <h1>Tambah Data Mahasiswa</h1>
 
-  <form action="" method="POST">
+  <form action="" method="POST" enctype="multipart/form-data">
     <ul>
       <li>
         <label for="nrp">NRP: </label>
@@ -72,6 +47,33 @@ if (isset($_POST["submit"])) {
       </li>
     </ul>
   </form>
+
+  <?php
+  if (isset($_POST["submit"])) {
+    $nrp = htmlspecialchars($_POST["nrp"]);
+    $nama = htmlspecialchars($_POST["nama"]);
+    $email = htmlspecialchars($_POST["email"]);
+    $jurusan = htmlspecialchars($_POST["jurusan"]);
+    $gambar = htmlspecialchars($_POST["gambar"]);
+
+    $resultQuery = query("INSERT INTO mahasiswa (nama, nrp, email, jurusan, gambar) VALUES ('$nama', '$nrp', '$email', '$jurusan', '$gambar')");
+
+    if ($resultQuery) {
+      echo <<<END
+        <script>
+          alert('Add data success.');
+          document.location.href = 'index.php';
+        </script>
+        END;
+    } else {
+      echo <<<END
+        <script>
+          alert('Unsuccessful.');
+        </script>
+        END;
+    }
+  }
+  ?>
 
   <p><a href="index.php">Back</a></p>
 </body>
