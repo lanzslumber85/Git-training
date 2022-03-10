@@ -40,7 +40,6 @@ require_once 'functions.php';
   if (isset($_POST["cari"])) {
 
     $keywordCarian = $_POST["keyword"];
-    // echo "line40 index.php: ".$keywordCarian."<br>";    
 
     $resultQuery = cari("SELECT * FROM mahasiswa WHERE nama LIKE '%$keywordCarian%' OR nrp LIKE '%$keywordCarian%'");
   }
